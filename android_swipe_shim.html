@@ -66,9 +66,9 @@
 			document.getElementById('log').innerHTML += 'swipeRight<br/>';
 		};
 		document.getElementById('test').addEventListener("swipeUp", swipeUp, false);
-		document.getElementById('test').addEventListener("swipeUp", swipeDown, false);
-		document.getElementById('test').addEventListener("swipeUp", swipeLeft, false);
-		document.getElementById('test').addEventListener("swipeUp", swipeRight, false);
+		document.getElementById('test').addEventListener("swipeDown", swipeDown, false);
+		document.getElementById('test').addEventListener("swipeLeft", swipeLeft, false);
+		document.getElementById('test').addEventListener("swipeRight", swipeRight, false);
 		//android swipe shim
 		var _MIN_DISTANCE_THRESHOLD = 2;//Math.round(80 / window.devicePixelRatio);
 		var _MAX_TIME_THRESHOLD = 400;
