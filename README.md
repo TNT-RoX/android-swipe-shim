@@ -11,7 +11,7 @@ This shim provides a solution by overlaying an element that can be natively scro
 ```sh
 e.preventDefault()
 ```
-**from touchStart events.**
+**from touchStart events. This shim needs native scrolling enabled.**
 
 
 License
