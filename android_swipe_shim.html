@@ -1,135 +1,154 @@
 <!DOCTYPE html>
-<!--
-	Proof of concept - Android Swipe Shim
--->	
 <html lang="en">
 	<head>
-		<meta charset="utf-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-		<title>Android-swipe-shim</title>
-		<meta name="description" content="Android-swipe-shim exposes native swipe to WebView :)" />
-		<meta name="author" content="Andrew Page/TNT-Rox" />
-		<meta name="viewport" content="width=device-width; initial-scale=1.0" />
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<title>Cross Version Android - Swipe Event Shim</title>
+		<meta name="description" content="">
+		<meta name="author" content="Andrew Page">
+		<meta name="viewport" content="width=device-width; initial-scale=1.0">
 	</head>
 	<style>
-		._android_swipeable {
-			display: block;
-			position: relative;
-			left: 90px;
-			top: 90px;
+		#test {
 			width: 500px;
 			height: 500px;
-			border: 1px solid black;
-			background:#00F;
+			border:1px solid #ccc;
 		}
-		._android_swipe_container {
-			width: 100%;
-			height: 100%;
-			display: block;
-			position: absolute;
+		._ezswipe_container {
+			-webkit-user-select: none;
+			user-select: none;
+			overflow: scroll;
+			-webkit-overflow-scrolling: touch;
+			opacity:0;
+			position: relative;
 			top: 0;
 			left: 0;
-			overflow: scroll;
+			width: 100%;
+			height: 100%;
 		}
-		._android_swipe_container::-webkit-scrollbar {
-			display: none;
-		}
-		._android_swipe_shim {
+		._ezswipe_surface {
 			width: 300%;
 			height: 300%;
-			display: block;
-		}
-		.loghold {
-			width: 700px;
-			height: 100px;
-			overflow: scroll;
+			position: relative;
 		}
 	</style>
 	<body>
-		<div class="loghold">
-			<div id="log"></div>
+		<div id="test" class="_ezswipe">
+
 		</div>
-		<div class="_android_swipeable" id="test"></div>
-
 	</body>
-	<script>
-		var swipeUp = function() {
-			document.getElementById('log').innerHTML += 'swipeUp<br/>';
-		},
-			swipeDown = function() {
-			document.getElementById('log').innerHTML += 'swipeDown<br/>';
-		},
-			swipeLeft = function() {
-			document.getElementById('log').innerHTML += 'swipeLeft<br/>';
-		},
-			swipeRight = function() {
-			document.getElementById('log').innerHTML += 'swipeRight<br/>';
-		};
-		document.getElementById('test').addEventListener("swipeUp", swipeUp, false);
-		document.getElementById('test').addEventListener("swipeDown", swipeDown, false);
-		document.getElementById('test').addEventListener("swipeLeft", swipeLeft, false);
-		document.getElementById('test').addEventListener("swipeRight", swipeRight, false);
-		//android swipe shim
-		var _MIN_DISTANCE_THRESHOLD = 2;//Math.round(80 / window.devicePixelRatio);
-		var _MAX_TIME_THRESHOLD = 400;
+	<script type="text/javascript">
 
-		var _android_scroll_elements = document.getElementsByClassName('_android_swipeable');
-		var _android_swipe_container_elements = document.getElementsByClassName('_android_swipe_container');
-
-		var Trigger = function(element,m) {
-			var event = new CustomEvent(m, {
-			 'detail' : 'elem.dataset.time'
-			 });
-			element.dispatchEvent(event);
-		}
-		//SETUP:
-		for (var i = 0; i < _android_scroll_elements.length; i++) {
-			var el = _android_scroll_elements[i];
-			var _android_swipe_container = document.createElement('div');
-			_android_swipe_container.setAttribute('class', '_android_swipe_container');
-			var _android_swipe_shim = document.createElement('div');
-			_android_swipe_shim.setAttribute('class', '_android_swipe_shim');
-			_android_swipe_container.appendChild(_android_swipe_shim);
-			el.insertBefore(_android_swipe_container, el.firstChild);
-		}
-		for (var i = 0; i < _android_swipe_container_elements.length; i++) {
-			var _this = _android_swipe_container_elements[i];
-			_this.scrollLeft = _this.firstElementChild.clientWidth / 4;
-			_this.scrollTop = _this.firstElementChild.clientHeight / 4;
-			_this.setAttribute('data-scrollLeftOffset', _this.scrollLeft);
-			_this.setAttribute('data-scrollTopOffset', _this.scrollTop);
-			_this.setAttribute('data-scrollLeftAccumulator', 0);
-			_this.setAttribute('data-scrollTopAccumulator', 0);
-			_this.setAttribute('data-scrollTimeAccumulator', 0);
-			_this.setAttribute('data-scrollTime', Date.now());
-
-			_this.onscroll = function(e) {
-				var _top = parseInt(this.getAttribute('data-scrollTopOffset')) - this.scrollTop, _left = parseInt(this.getAttribute('data-scrollLeftOffset')) - this.scrollLeft, _topAccumulator = parseInt(this.getAttribute('data-scrollTopAccumulator')) + _top, _leftAccumulator = parseInt(this.getAttribute('data-scrollLeftAccumulator')) + _left;
-
-				if ((_topAccumulator > _MIN_DISTANCE_THRESHOLD) || (_topAccumulator < (_MIN_DISTANCE_THRESHOLD * -1))) {
-					if (_topAccumulator > _MIN_DISTANCE_THRESHOLD) {
-						Trigger(this.parentNode,'swipeDown');
-					} else {
-						Trigger(this.parentNode,'swipeUp');
+		function _droid_swipe(el) {
+			var _child = el.getElementsByClassName("_ezswipe_surface")[0];
+			el.ezSwipe = {
+				center : {
+					x : (_child.clientWidth / 2) - (el.clientWidth / 2),
+					y : (_child.clientHeight / 2) - (el.clientHeight / 2)
+				},
+				timer : null,
+				Hz : 2,
+				scrolling : false,
+				result : {
+					starttime : 0,
+					stoptime : 0,
+					delta : {
+						x : 0,
+						y : 0,
+						t : 0
 					}
-					this.setAttribute('data-scrollTopAccumulator', 0);
-					this.setAttribute('data-scrollLeftAccumulator', 0);
-				} else if ((_leftAccumulator > _MIN_DISTANCE_THRESHOLD) || (_leftAccumulator < (_MIN_DISTANCE_THRESHOLD * -1))) {
-					if (_leftAccumulator > _MIN_DISTANCE_THRESHOLD) {
-						Trigger(this.parentNode,'swipeLeft');
+				}
+			};
+			el.scrollLeft = el.ezSwipe.center.x;
+			el.scrollTop = el.ezSwipe.center.x;
+			el.onscroll = function(e) {
+				var _self = this;
+
+				if ((this.scrollLeft != this.ezSwipe.center.x) || (this.scrollTop != this.ezSwipe.center.y)) {
+					function dispatchEvent(name) {
+						var settings = {
+							"detail" : {
+								delta : {
+									x : _self.scrollLeft - _self.ezSwipe.center.x,
+									y : _self.scrollTop - _self.ezSwipe.center.y,
+									t : (new Date().getTime()) - _self.ezSwipe.starttime
+								},
+								bubbles : false,
+								cancelable : true
+							}
+						};
+						var event = new CustomEvent(name, settings);
+						_self.parentNode.dispatchEvent(event);
+						delete event;
+					};
+					if (!this.ezSwipe.scrolling) {
+						this.ezSwipe.result.starttime = new Date().getTime();
+						dispatchEvent('swipeStart');
+						this.ezSwipe.scrolling = true;
 					} else {
-						Trigger(this.parentNode,'swipeRight');
+						dispatchEvent('swipeMove');
 					}
-					this.setAttribute('data-scrollTopAccumulator', 0);
-					this.setAttribute('data-scrollLeftAccumulator', 0);
-				} else {
-					this.setAttribute('data-scrollTopAccumulator', _topAccumulator);
-					this.setAttribute('data-scrollLeftAccumulator', _leftAccumulator);
+					if (this.ezSwipe.timer) {
+						clearTimeout(this.ezSwipe.timer);
+					}
+
+					this.ezSwipe.timer = setTimeout(function() {
+						_self.ezSwipe.timer = null;
+						with (_self.ezSwipe.result) {
+							stoptime = new Date().getTime();
+							delta.t = stoptime - starttime;
+							delta.x = _self.scrollLeft - _self.ezSwipe.center.x;
+							delta.y = _self.scrollTop - _self.ezSwipe.center.y;
+						};
+						dispatchEvent('swipeEnd');
+						if (Math.abs(_self.ezSwipe.result.delta.y) > Math.abs(_self.ezSwipe.result.delta.x)) {
+							//vertical
+							if (_self.ezSwipe.result.delta.y < 0) {
+								dispatchEvent('swipeUp');
+							} else {
+								dispatchEvent('swipeDown');
+							}
+						} else {
+							//horizontal
+							if (_self.ezSwipe.result.delta.x < 0) {
+								dispatchEvent('swipeLeft');
+							} else {
+								dispatchEvent('swipeRight');
+							}
+						}
+						_self.ezSwipe.scrolling = false;
+						_droid_swipe(_self);
+					}, 100  / this.ezSwipe.Hz);
 				}
 
-				this.scrollLeft = this.getAttribute('data-scrollLeftOffset');
-				this.scrollTop = this.getAttribute('data-scrollTopOffset');
 			};
 		}
+
+		var _ezSwipes = document.getElementsByClassName("_ezswipe");
+		//Prepend the HTML
+		for (var i = 0; i < _ezSwipes.length; i++) {
+			var ezswipe_container = document.createElement("div");
+			ezswipe_container.classList.add("_ezswipe_container");
+			var ezswipe_surface = document.createElement("div");
+			ezswipe_surface.classList.add("_ezswipe_surface");
+			ezswipe_container.appendChild(ezswipe_surface);
+			var item = _ezSwipes[i].insertBefore(ezswipe_container, _ezSwipes[i].firstElementChild);
+			_droid_swipe(item);
+		}
+		
+		// TEST
+		function logEvent(e) {
+			console.log(e.type);
+		}
+
+		var el = document.getElementById('test');
+		el.addEventListener("swipeStart", logEvent, true);
+		el.addEventListener("swipeMove", logEvent, true);
+		el.addEventListener("swipeEnd", logEvent, true);
+		el.addEventListener("swipeUp", logEvent, true);
+		el.addEventListener("swipeDown", logEvent, true);
+		el.addEventListener("swipeLeft", logEvent, true);
+		el.addEventListener("swipeRight", logEvent, true);
+		
 	</script>
 </html>
