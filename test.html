@@ -21,17 +21,15 @@
 	<script src="_ezSwipe.js" type="text/javascript"></script>
 	<script type="text/javascript">
 	function logEvent(e) {
-			console.log(e.type);
-		}
-
-		var el = document.getElementById('test');
-		el.addEventListener("swipeStart", logEvent, true);
-		el.addEventListener("swipeMove", logEvent, true);
-		el.addEventListener("swipeEnd", logEvent, true);
-		el.addEventListener("swipeUp", logEvent, true);
-		el.addEventListener("swipeDown", logEvent, true);
-		el.addEventListener("swipeLeft", logEvent, true);
-		el.addEventListener("swipeRight", logEvent, true);
-
+		console.log(e.type);
+	}
+	var el = document.getElementById('test');
+	    el.addEventListener("swipeStart", logEvent, true);
+	    el.addEventListener("swipeMove", logEvent, true);
+	    el.addEventListener("swipeEnd", logEvent, true);
+	    el.addEventListener("swipeUp", logEvent, true);
+	    el.addEventListener("swipeDown", logEvent, true);
+	    el.addEventListener("swipeLeft", logEvent, true);
+	    el.addEventListener("swipeRight", logEvent, true);
 	</script>
-	</html>
+</html>
