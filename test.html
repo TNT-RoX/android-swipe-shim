@@ -32,13 +32,14 @@
 		document.getElementById('log').insertBefore(item, document.getElementById('log').firstElementChild);
 		document.getElementById('log').scrollTop = 0;
 	}
-	var el = document.getElementById('test');
-	    el.addEventListener("swipeStart", logEvent, true);
-	    el.addEventListener("swipeMove", logEvent, true);
-	    el.addEventListener("swipeEnd", logEvent, true);
-	    el.addEventListener("swipeUp", logEvent, true);
-	    el.addEventListener("swipeDown", logEvent, true);
-	    el.addEventListener("swipeLeft", logEvent, true);
-	    el.addEventListener("swipeRight", logEvent, true);
+	with (document.getElementById('test')) {
+	    addEventListener("swipeStart", logEvent, true);
+	    addEventListener("swipeMove", logEvent, true);
+	    addEventListener("swipeEnd", logEvent, true);
+	    addEventListener("swipeUp", logEvent, true);
+	    addEventListener("swipeDown", logEvent, true);
+	    addEventListener("swipeLeft", logEvent, true);
+	    addEventListener("swipeRight", logEvent, true);		
+	};
 	</script>
 </html>
