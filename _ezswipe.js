@@ -56,8 +56,8 @@
 					with (_self.ezSwipe.result) {
 						stoptime = new Date().getTime();
 						delta.t = stoptime - starttime;
-						delta.x = _self.scrollLeft - _self.ezSwipe.center.x;
-						delta.y = _self.scrollTop - _self.ezSwipe.center.y;
+						delta.x = _self.ezSwipe.center.x - _self.scrollLeft;
+						delta.y = _self.ezSwipe.center.y - _self.scrollTop;
 					};
 					dispatchEvent('swipeEnd');
 					if (Math.abs(_self.ezSwipe.result.delta.y) > Math.abs(_self.ezSwipe.result.delta.x)) {
