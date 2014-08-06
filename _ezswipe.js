@@ -7,7 +7,6 @@
 				y : (_child.clientHeight / 2) - (el.clientHeight / 2)
 			},
 			timer : null,
-			Hz : 2,
 			scrolling : false,
 			result : {
 				starttime : 0,
@@ -78,7 +77,7 @@
 					}
 					_self.ezSwipe.scrolling = false;
 					_droid_swipe(_self);
-				}, 100 / this.ezSwipe.Hz);
+				}, 100);
 			}
 
 		};
