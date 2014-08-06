@@ -10,12 +10,12 @@
 	</head>
 	<style>
 		#test {
-			width: 250px;
-			height: 300px;
+			width: 100%;
+			height: 200px;
 			border: 1px solid #ccc;
 		}
 		#log {
-			width:250px;
+			width:100%;
 			height:200px;
 			overflow:scroll;
 		}
@@ -29,7 +29,8 @@
 	function logEvent(e) {
 		var item = document.createElement("li");
 		item.textContent = e.type;
-		document.getElementById('log').appendChild(item);
+		document.getElementById('log').insertBefore(item, document.getElementById('log').firstElementChild);
+		document.getElementById('log').scrollTop = 0;
 	}
 	var el = document.getElementById('test');
 	    el.addEventListener("swipeStart", logEvent, true);
