@@ -49,7 +49,6 @@
 				if (this.ezSwipe.timer) {
 					clearTimeout(this.ezSwipe.timer);
 				}
-
 				this.ezSwipe.timer = setTimeout(function() {
 					_self.ezSwipe.timer = null;
 					with (_self.ezSwipe.result) {
@@ -60,22 +59,17 @@
 					};
 					dispatchEvent('swipeEnd');
 					if (Math.abs(_self.ezSwipe.result.delta.y) > Math.abs(_self.ezSwipe.result.delta.x)) {
-						//vertical
 						_self.ezSwipe.result.delta.y < 0 ? dispatchEvent('swipeUp') : dispatchEvent('swipeDown');
 					} else {
-						//horizontal
 						_self.ezSwipe.result.delta.x < 0 ? dispatchEvent('swipeLeft') : dispatchEvent('swipeRight');
 					}
 					_self.ezSwipe.scrolling = false;
 					_droid_swipe(_self);
 				}, 100);
 			}
-
 		};
 	}
-
 	var _ezSwipes = document.getElementsByClassName("_ezswipe");
-	//Prepend the HTML
 	for (var i = 0; i < _ezSwipes.length; i++) {
 		var ezswipe_container = document.createElement("div");
 		ezswipe_container.classList.add("_ezswipe_container");
