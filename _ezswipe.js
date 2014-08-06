@@ -22,7 +22,6 @@
 		el.scrollTop = el.ezSwipe.center.y;
 		el.onscroll = function(e) {
 			var _self = this;
-
 			if ((this.scrollLeft != this.ezSwipe.center.x) || (this.scrollTop != this.ezSwipe.center.y)) {
 				function dispatchEvent(name) {
 					var settings = {
@@ -62,18 +61,10 @@
 					dispatchEvent('swipeEnd');
 					if (Math.abs(_self.ezSwipe.result.delta.y) > Math.abs(_self.ezSwipe.result.delta.x)) {
 						//vertical
-						if (_self.ezSwipe.result.delta.y < 0) {
-							dispatchEvent('swipeUp');
-						} else {
-							dispatchEvent('swipeDown');
-						}
+						_self.ezSwipe.result.delta.y < 0 ? dispatchEvent('swipeUp') : dispatchEvent('swipeDown');
 					} else {
 						//horizontal
-						if (_self.ezSwipe.result.delta.x < 0) {
-							dispatchEvent('swipeLeft');
-						} else {
-							dispatchEvent('swipeRight');
-						}
+						_self.ezSwipe.result.delta.x < 0 ? dispatchEvent('swipeLeft') : dispatchEvent('swipeRight');
 					}
 					_self.ezSwipe.scrolling = false;
 					_droid_swipe(_self);
@@ -107,7 +98,6 @@
 			height = '300%';
 		};
 		ezswipe_container.appendChild(ezswipe_surface);
-		var item = _ezSwipes[i].insertBefore(ezswipe_container, _ezSwipes[i].firstElementChild);
-		_droid_swipe(item);
+		_droid_swipe(_ezSwipes[i].insertBefore(ezswipe_container, _ezSwipes[i].firstElementChild));
 	}
 })();
