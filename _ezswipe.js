@@ -19,7 +19,7 @@
 			}
 		};
 		el.scrollLeft = el.ezSwipe.center.x;
-		el.scrollTop = el.ezSwipe.center.x;
+		el.scrollTop = el.ezSwipe.center.y;
 		el.onscroll = function(e) {
 			var _self = this;
 
