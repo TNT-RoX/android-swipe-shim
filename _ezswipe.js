@@ -28,8 +28,8 @@
 					var settings = {
 						"detail" : {
 							delta : {
-								x : _self.scrollLeft - _self.ezSwipe.center.x,
-								y : _self.scrollTop - _self.ezSwipe.center.y,
+								x : _self.ezSwipe.center.x - _self.scrollLeft,
+								y : _self.ezSwipe.center.y - _self.scrollTop,
 								t : (new Date().getTime()) - _self.ezSwipe.starttime
 							},
 							bubbles : false,
