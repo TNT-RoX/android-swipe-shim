@@ -36,7 +36,6 @@
 		el.onscroll = function(e) {
 			//TODO: swipeCancel if edge of scroll surface reached. */
 			//TODO: Time still buggy
-			//TODO: replace self & this with(el) {}
 			if ((el.scrollLeft != el.ezSwipe.center.x) || (el.scrollTop != el.ezSwipe.center.y)) {
 				if (!el.ezSwipe.scrolling) {
 					var delta = {
