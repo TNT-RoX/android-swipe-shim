@@ -35,12 +35,13 @@
 			var d, delta;
 			if ((el.scrollLeft !== el.ezSwipe.center.x) || (el.scrollTop !== el.ezSwipe.center.y)) {
 				if (!el.ezSwipe.scrolling) {
+					d = new Date().getTime();
 					delta = {
 						x : 0,
 						y : 0,
-						t : new Date().getTime()
+						t : d
 					};
-					el.ezSwipestarttime = delta.t;
+					el.ezSwipe.starttime = d;
 					el.ezSwipelast = delta;
 					dispatchEvent("swipeStart", delta);
 					el.ezSwipe.scrolling = true;
@@ -62,13 +63,12 @@
 					clearTimeout(el.ezSwipe.timer);
 				}
 				el.ezSwipe.timer = setTimeout(function() {
-					var t;
 					el.ezSwipe.timer = null;
-					t = new Date().getTime();
+					d = new Date().getTime();
 					delta = {
 						x : el.ezSwipe.center.x - el.scrollLeft,
 						y : el.ezSwipe.center.y - el.scrollTop,
-						t : t - el.ezSwipe.starttime
+						t : d - el.ezSwipe.starttime
 					};
 					el.ezSwipelast = delta;
 					dispatchEvent("swipeEnd", delta);
