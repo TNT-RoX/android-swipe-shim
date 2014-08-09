@@ -35,13 +35,12 @@
 			var d, delta;
 			if ((el.scrollLeft !== el.ezSwipe.center.x) || (el.scrollTop !== el.ezSwipe.center.y)) {
 				if (!el.ezSwipe.scrolling) {
-					d = new Date().getTime();
 					delta = {
 						x : 0,
 						y : 0,
-						t : d
+						t : 0
 					};
-					el.ezSwipe.starttime = d;
+					el.ezSwipe.starttime = new Date().getTime();;
 					el.ezSwipelast = delta;
 					dispatchEvent("swipeStart", delta);
 					el.ezSwipe.scrolling = true;
