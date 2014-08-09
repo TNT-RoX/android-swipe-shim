@@ -64,7 +64,7 @@
 				el.ezSwipe.timer = setTimeout(function() {
 					var t;
 					el.ezSwipe.timer = null;
-					t = parseInt(new Date().getTime());
+					t = new Date().getTime();
 					delta = {
 						x : el.ezSwipe.center.x - el.scrollLeft,
 						y : el.ezSwipe.center.y - el.scrollTop,
