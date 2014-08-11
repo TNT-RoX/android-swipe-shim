@@ -41,7 +41,7 @@
 						t : 0
 					};
 					el.ezSwipe.starttime = d;
-					el.ezSwipelast = delta;
+					el.ezSwipe.last = delta;
 					dispatchEvent("swipeStart", delta);
 					el.ezSwipe.scrolling = true;
 				} else {
