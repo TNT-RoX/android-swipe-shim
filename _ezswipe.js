@@ -11,10 +11,9 @@
 					cancelable : true
 				}
 			};
-			event = new CustomEvent(name, settings);
-			el.parentNode.dispatchEvent(event);
+			el.parentNode.dispatchEvent(new CustomEvent(name, settings));
 		};
-		_child = el.getElementsByClassName("_ezswipe_surface")[0];
+		_child = el.querySelectorAll("._ezswipe_surface")[0];
 		el.ezSwipe = {
 			center : {
 				x : (_child.clientWidth / 2) - (el.clientWidth / 2),
@@ -33,6 +32,7 @@
 		el.scrollTop = el.ezSwipe.center.y;
 		el.onscroll = function(e) {
 			var d, delta;
+			d = new Date().getTime();
 			if ((el.scrollLeft !== el.ezSwipe.center.x) || (el.scrollTop !== el.ezSwipe.center.y)) {
 				if (!el.ezSwipe.scrolling) {
 					delta = {
@@ -40,12 +40,11 @@
 						y : 0,
 						t : 0
 					};
-					el.ezSwipe.starttime = new Date().getTime();;
+					el.ezSwipe.starttime = d;
 					el.ezSwipelast = delta;
 					dispatchEvent("swipeStart", delta);
 					el.ezSwipe.scrolling = true;
 				} else {
-					d = new Date().getTime();
 					delta = {
 						x : el.ezSwipe.center.x - el.scrollLeft - el.ezSwipelast.x,
 						y : el.ezSwipe.center.y - el.scrollTop - el.ezSwipelast.y,
@@ -90,7 +89,7 @@
 			}
 		};
 	};
-	_ezSwipes = document.getElementsByClassName("_ezswipe");
+	_ezSwipes = document.querySelectorAll("._ezswipe");
 	i = 0;
 	while (i < _ezSwipes.length) {
 		ezswipe_container = document.createElement("div");
