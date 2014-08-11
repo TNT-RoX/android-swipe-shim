@@ -41,16 +41,16 @@
 						t : 0
 					};
 					el.ezSwipe.starttime = d;
-					el.ezSwipelast = delta;
+					el.ezSwipe.last = delta;
 					dispatchEvent("swipeStart", delta);
 					el.ezSwipe.scrolling = true;
 				} else {
 					delta = {
-						x : el.ezSwipe.center.x - el.scrollLeft - el.ezSwipelast.x,
-						y : el.ezSwipe.center.y - el.scrollTop - el.ezSwipelast.y,
-						t : d - el.ezSwipe.starttime - el.ezSwipelast.t
+						x : el.ezSwipe.center.x - el.scrollLeft - el.ezSwipe.last.x,
+						y : el.ezSwipe.center.y - el.scrollTop - el.ezSwipe.last.y,
+						t : d - el.ezSwipe.starttime - el.ezSwipe.last.t
 					};
-					el.ezSwipelast = {
+					el.ezSwipe.last = {
 						x : el.ezSwipe.center.x - el.scrollLeft,
 						y : el.ezSwipe.center.y - el.scrollTop,
 						t : d - el.ezSwipe.starttime
@@ -68,7 +68,7 @@
 						y : el.ezSwipe.center.y - el.scrollTop,
 						t : d - el.ezSwipe.starttime
 					};
-					el.ezSwipelast = delta;
+					el.ezSwipe.last = delta;
 					dispatchEvent("swipeEnd", delta);
 					if (Math.abs(delta.y) > Math.abs(delta.x)) {
 						if (delta.y < 0) {
@@ -102,7 +102,7 @@
 			style.opacity = 0;
 			style.top = 0;
 			style.left = 0;
-			style.position = "absolute";
+		style.position = "absolute";
 		if (_ezSwipes[i].offsetWidth > document.width) {
 			style.width = document.width + "px";
 		} else {
@@ -123,4 +123,4 @@
 		_droid_swipe(_ezSwipes[i].insertBefore(ezswipe_container, _ezSwipes[i].firstElementChild));
 		i++;
 	}
-})();
+})(); 
