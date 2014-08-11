@@ -28,7 +28,7 @@
 	<script type="text/javascript">
 		function logEvent(e) {
 			var item = document.createElement("li");
-			item.textContent = e.type + ':(' + e.detail.delta.x +','+ e.detail.delta.y + ') @ '+e.detail.delta.t;
+			item.textContent = e.type + ':(' + e.detail.delta.x +','+ e.detail.delta.y + ') in '+e.detail.delta.t+'ms';
 			document.getElementById('log').insertBefore(item, document.getElementById('log').firstElementChild);
 			document.getElementById('log').scrollTop = 0;
 		}
