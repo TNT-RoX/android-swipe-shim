@@ -7,13 +7,13 @@ The solution to this has mostly been to preventDefault on touchstart and manuall
 
 This behavior is embedded in millions of Android devices and cannot be corrected at its source.
 
-This shim provides a solution by overlaying a contained element that can be natively scrolled and fires swipe events based on its scroll offsets. 
+This shim provides a solution by overlaying a contained element that can be natively scrolled and fires swipe events based on its scroll offsets, allowing your software to handle move events with native scrolling enabled.
 
 **Remove**
 ```sh
 *.preventDefault()
 ```
-from touchStart events. This shim needs native scrolling enabled.
+**from touchStart events. This shim needs native scrolling enabled.**
 
 Add to your html document:
 ```sh
