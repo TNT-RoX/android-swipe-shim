@@ -1,4 +1,4 @@
-android-swipe-shim (beta)
+android-swipe-shim
 ==================
 
 On some Android devices when the user touches the screen a touchstart event is fired, Android passes the event to WebView (javascript) to be handled. If WebView does not preventdefault (within 200ms), Android resumes native scrolling and stops passing touch events to WebView.  
