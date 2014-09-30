@@ -110,7 +110,6 @@
 		style.width = "300%", 
 		style.height = "300%", 
 		ezswipe_container.appendChild(ezswipe_surface), 
-		_droid_swipe(_ezSwipes[i].insertBefore(ezswipe_container, 
-		_ezSwipes[i].firstElementChild)); 
+		_droid_swipe(_ezSwipes[i].insertBefore(ezswipe_container,_ezSwipes[i].firstElementChild)); 
 	};
 })();
