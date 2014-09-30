@@ -90,37 +90,27 @@
 		};
 	};
 	_ezSwipes = document.querySelectorAll("._ezswipe");
-	i = 0;
-	while (i < _ezSwipes.length) {
-		ezswipe_container = document.createElement("div");
-		ezswipe_container.classList.add("_ezswipe_container");
-		_ezSwipes[i].style.overflow = "hidden";
-		style = ezswipe_container.style;
-			style.webkitUserSelect = "none";
-			style.webkitOverflowScrolling = "touch";
-			style.overflow = "auto";
-			style.opacity = 0;
-			style.top = 0;
-			style.left = 0;
-		style.position = "absolute";
-		if (_ezSwipes[i].offsetWidth > document.width) {
-			style.width = document.width + "px";
-		} else {
-			style.width = _ezSwipes[i].offsetWidth + "px";
-		}
-		if (_ezSwipes[i].offsetHeight > document.height) {
-			style.height = document.height + "px";
-		} else {
-			style.height = _ezSwipes[i].offsetHeight + "px";
-		}
-		ezswipe_surface = document.createElement("div");
-		ezswipe_surface.classList.add("_ezswipe_surface");
-		style = ezswipe_surface.style;
-			style.position = "relative";
-			style.width = "300%";
-			style.height = "300%";
-		ezswipe_container.appendChild(ezswipe_surface);
-		_droid_swipe(_ezSwipes[i].insertBefore(ezswipe_container, _ezSwipes[i].firstElementChild));
-		i++;
-	}
-})(); 
+	for (i = 0;i < _ezSwipes.length; i++) {
+		ezswipe_container = document.createElement("div"), 
+		ezswipe_container.classList.add("_ezswipe_container"), 
+		_ezSwipes[i].style.overflow = "hidden", 
+		style = ezswipe_container.style, 
+		style.webkitUserSelect = "none", 
+		style.webkitOverflowScrolling = "touch", 
+		style.overflow = "auto", 
+		style.opacity = 0, 
+		style.top = 0, 
+		style.left = 0, 
+		style.position = "absolute", 
+		style.width = _ezSwipes[i].offsetWidth > document.width ? document.width + "px" : _ezSwipes[i].offsetWidth + "px", 
+		style.height = _ezSwipes[i].offsetHeight > document.height ? document.height + "px" : _ezSwipes[i].offsetHeight + "px", 
+		ezswipe_surface = document.createElement("div"), ezswipe_surface.classList.add("_ezswipe_surface"), 
+		style = ezswipe_surface.style, 
+		style.position = "relative", 
+		style.width = "300%", 
+		style.height = "300%", 
+		ezswipe_container.appendChild(ezswipe_surface), 
+		_droid_swipe(_ezSwipes[i].insertBefore(ezswipe_container, 
+		_ezSwipes[i].firstElementChild)); 
+	};
+})();
