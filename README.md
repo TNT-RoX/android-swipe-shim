@@ -19,9 +19,9 @@ Add to your html document:
 ```sh
 <script src="_ezSwipe.js" type="text/javascript"></script>
 ```
-Add to the elements class you want swipe:
+Run scrollSwipe on the element you want to transmit swipe events.
 ```sh
-class="_ezswipe"
+document.getElementById('test').scrollSwipe()
 ```
 Handel the Swipe event:
 ```sh
