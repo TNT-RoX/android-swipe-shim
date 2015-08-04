@@ -37,7 +37,7 @@ with (document.getElementById('test')) {
 ```
 Or jQuery:
 ```sh
-$(el).on("swipeUp", function(e) {
+$('#test').on("swipeUp", function(e) {
  console.dir(e.detail);
 })
 ```
