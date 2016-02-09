@@ -27,8 +27,8 @@
                     container.scrollLeft = container.clientWidth;
                     container.scrollTop = container.clientHeight;
                     data.last = {
-                        x: container.clientWidth * .5,
-                        y: container.clientHeight * .5,
+                        x: container.clientWidth >> 1,
+                        y: container.clientHeight >> 1,
                         t: 0
                     };
                     return true;
@@ -36,8 +36,8 @@
 
                 function scrollable() {
                     var center = {
-                            x: container.clientWidth * 1.5,
-                            y: container.clientHeight * 1.5
+                            x: (container.clientWidth >> 1) + container.clientWidth,
+                            y: (container.clientHeight >> 1) + container.clientHeight
                         },
                         timer = null,
                         starttime = 0,
