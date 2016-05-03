@@ -33,6 +33,7 @@
 			document.getElementById('log').scrollTop = 0;
 		}
 		with (document.getElementById('test')) {
+			scrollSwipe();
 			addEventListener("swipeStart", logEvent, true);
 			addEventListener("swipeMove", logEvent, true);
 			addEventListener("swipeEnd", logEvent, true);
